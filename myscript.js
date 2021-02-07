@@ -1,91 +1,26 @@
-gameBoard = [
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""],
-];
+gameBoard = ["", "", "", "", "", "", "", "", ""];
 
 playCounter = 1;
 
 function checkWinner() {
-  if (
-    gameBoard[0][0] !== "" &&
-    gameBoard[0][0] === gameBoard[0][1] &&
-    gameBoard[0][1] === gameBoard[0][2]
-  ) {
-    if (playCounter % 2 === 0) {
-      announceFirstWinner();
-    } else {
-      announceSecondWinner();
-    }
-  } else if (
-    gameBoard[0][0] !== "" &&
-    gameBoard[0][0] === gameBoard[1][0] &&
-    gameBoard[1][0] === gameBoard[2][0]
-  ) {
-    if (playCounter % 2 === 0) {
-      announceFirstWinner();
-    } else {
-      announceSecondWinner();
-    }
-  } else if (
-    gameBoard[2][0] !== "" &&
-    gameBoard[2][0] === gameBoard[2][1] &&
-    gameBoard[2][1] === gameBoard[2][2]
-  ) {
-    if (playCounter % 2 === 0) {
-      announceFirstWinner();
-    } else {
-      announceSecondWinner();
-    }
-  } else if (
-    gameBoard[0][2] !== "" &&
-    gameBoard[0][2] === gameBoard[1][2] &&
-    gameBoard[1][2] === gameBoard[2][2]
-  ) {
-    if (playCounter % 2 === 0) {
-      announceFirstWinner();
-    } else {
-      announceSecondWinner();
-    }
-  } else if (
-    gameBoard[0][0] !== "" &&
-    gameBoard[0][0] === gameBoard[1][1] &&
-    gameBoard[1][1] === gameBoard[2][2]
-  ) {
-    if (playCounter % 2 === 0) {
-      announceFirstWinner();
-    } else {
-      announceSecondWinner();
-    }
-  } else if (
-    gameBoard[2][0] !== "" &&
-    gameBoard[2][0] === gameBoard[1][1] &&
-    gameBoard[1][1] === gameBoard[0][2]
-  ) {
-    if (playCounter % 2 === 0) {
-      announceFirstWinner();
-    } else {
-      announceSecondWinner();
-    }
-  } else if (
-    gameBoard[0][1] !== "" &&
-    gameBoard[0][1] === gameBoard[1][1] &&
-    gameBoard[1][1] === gameBoard[2][1]
-  ) {
-    if (playCounter % 2 === 0) {
-      announceFirstWinner();
-    } else {
-      announceSecondWinner();
-    }
-  } else if (
-    gameBoard[1][0] !== "" &&
-    gameBoard[1][0] === gameBoard[1][1] &&
-    gameBoard[1][1] === gameBoard[1][2]
-  ) {
-    if (playCounter % 2 === 0) {
-      announceFirstWinner();
-    } else {
-      announceSecondWinner();
+  possibleWinnings = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  for (let i = 0; i < 8; i++) {
+    possibleWin = possibleWinnings[i];
+    let a = gameBoard[possibleWin[0]];
+    let b = gameBoard[possibleWin[1]];
+    let c = gameBoard[possibleWin[2]];
+    if (a !== "" && a === b && b === c) {
+      announcWinner();
     }
   }
 }
@@ -98,51 +33,37 @@ function drawTable() {
   board.id = "board";
   documentSelector.appendChild(board);
   var boardSelector = document.body.querySelector("#board");
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      cell = document.createElement("div");
-      cell.className = "cell";
-      cell.id = "cell" + i + j;
-      cell.innerHTML = gameBoard[i][j];
-      boardSelector.appendChild(cell);
-    }
+  for (let i = 0; i < 9; i++) {
+    cell = document.createElement("div");
+    cell.className = "cell";
+    cell.id = "cell" + i;
+    cell.innerHTML = gameBoard[i];
+    boardSelector.appendChild(cell);
+    cellListener = document.getElementById("cell" + i);
+    cellListener.addEventListener("click", function () {
+      if (playCounter % 2 !== 0 && gameBoard[i] === "") {
+        gameBoard[i] = "x";
+        playCounter++;
+        drawTable();
+        checkWinner();
+      } else if ((playCounter % 2 === 0) & (gameBoard[i] === "")) {
+        gameBoard[i] = "o";
+        playCounter++;
+        drawTable();
+        checkWinner();
+      }
+    });
   }
 }
 
-function listener() {
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      cellListener = document.getElementById("cell" + i + j);
-      cellListener.addEventListener("click", function () {
-        if (playCounter % 2 !== 0 && gameBoard[i][j] === "") {
-          gameBoard[i][j] = "x";
-          playCounter++;
-          drawTable();
-          listener();
-          checkWinner();
-        } else if ((playCounter % 2 === 0) & (gameBoard[i][j] === "")) {
-          gameBoard[i][j] = "o";
-          playCounter++;
-          drawTable();
-          listener();
-          checkWinner();
-        }
-      });
-    }
+function announcWinner() {
+  winnerSelector = document.body.querySelector("#winner");
+  winner = document.createElement("h1");
+  if (playCounter % 2 === 0) {
+    winner.innerHTML = "X Won!";
+  } else {
+    winner.innerHTML = "O Won!";
   }
-}
-
-function announceFirstWinner() {
-  winnerSelector = document.body.querySelector("#winner");
-  winner = document.createElement("h1");
-  winner.innerHTML = "X Won!";
-  winnerSelector.appendChild(winner);
-}
-
-function announceSecondWinner() {
-  winnerSelector = document.body.querySelector("#winner");
-  winner = document.createElement("h1");
-  winner.innerHTML = "O Won!";
   winnerSelector.appendChild(winner);
 }
 
@@ -151,4 +72,3 @@ document.getElementById("btn").addEventListener("click", function () {
 });
 
 drawTable();
-listener();
