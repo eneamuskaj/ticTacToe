@@ -35,6 +35,7 @@ h1 {
   text-align: center;
   color: rgb(239, 220, 255);
 }
-.btn {
+#btn {
+  margin-top: 10px;
   margin-left: 150px;
 }

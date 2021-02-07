@@ -90,7 +90,7 @@ function checkWinner() {
   }
 }
 
-function draw() {
+function drawTable() {
   deleteBoard = document.getElementById("board");
   deleteBoard.remove();
   var documentSelector = document.body.querySelector("#document");
@@ -117,13 +117,13 @@ function listener() {
         if (playCounter % 2 !== 0 && gameBoard[i][j] === "") {
           gameBoard[i][j] = "x";
           playCounter++;
-          draw();
+          drawTable();
           listener();
           checkWinner();
         } else if ((playCounter % 2 === 0) & (gameBoard[i][j] === "")) {
           gameBoard[i][j] = "o";
           playCounter++;
-          draw();
+          drawTable();
           listener();
           checkWinner();
         }
@@ -135,30 +135,20 @@ function listener() {
 function announceFirstWinner() {
   winnerSelector = document.body.querySelector("#winner");
   winner = document.createElement("h1");
-  newGamebutton = document.createElement("button");
-  newGamebutton.className = "btn";
   winner.innerHTML = "X Won!";
   winnerSelector.appendChild(winner);
-  newGamebutton.innerHTML = "New Game";
-  winnerSelector.appendChild(newGamebutton);
-  newGamebutton.addEventListener("click", function () {
-    window.location.reload();
-  });
 }
 
 function announceSecondWinner() {
   winnerSelector = document.body.querySelector("#winner");
   winner = document.createElement("h1");
-  newGamebutton = document.createElement("button");
-  newGamebutton.className = "btn";
   winner.innerHTML = "O Won!";
   winnerSelector.appendChild(winner);
-  newGamebutton.innerHTML = "New Game";
-  winnerSelector.appendChild(newGamebutton);
-  newGamebutton.addEventListener("click", function () {
-    window.location.reload();
-  });
 }
 
-draw();
+document.getElementById("btn").addEventListener("click", function () {
+  window.location.reload();
+});
+
+drawTable();
 listener();
