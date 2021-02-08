@@ -20,7 +20,10 @@ function checkWinner() {
     let b = gameBoard[possibleWin[1]];
     let c = gameBoard[possibleWin[2]];
     if (a !== "" && a === b && b === c) {
-      announcWinner();
+      document.getElementById("cell" + possibleWin[0]).classList.add("winner");
+      document.getElementById("cell" + possibleWin[1]).classList.add("winner");
+      document.getElementById("cell" + possibleWin[2]).classList.add("winner");
+      announceWinner();
     }
   }
 }
@@ -39,11 +42,25 @@ function drawTable() {
     cell.id = "cell" + i;
     cell.innerHTML = gameBoard[i];
     boardSelector.appendChild(cell);
+
     cellListener = document.getElementById("cell" + i);
+
+    cellListener.addEventListener("mouseenter", function () {
+      document.getElementById("cell" + i).classList.add("hovered");
+    });
+    cellListener.addEventListener("mouseout", function () {
+      document.getElementById("cell" + i).classList.remove("hovered");
+    });
+
     cellListener.addEventListener("click", function () {
       if (playCounter % 2 !== 0 && gameBoard[i] === "") {
         gameBoard[i] = "x";
         playCounter++;
+        // function generator() {
+        //   randomGenerator = Math.floor(Math.random() * Math.floor(8));
+        //   return randomGenerator;
+        // }
+
         drawTable();
         checkWinner();
       } else if ((playCounter % 2 === 0) & (gameBoard[i] === "")) {
@@ -56,7 +73,7 @@ function drawTable() {
   }
 }
 
-function announcWinner() {
+function announceWinner() {
   winnerSelector = document.body.querySelector("#winner");
   winner = document.createElement("h1");
   if (playCounter % 2 === 0) {

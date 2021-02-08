@@ -12,20 +12,20 @@ body {
 }
 
 .cell {
-  background-color: rgb(97, 54, 91);
-  border: 1px solid rgb(255, 255, 255);
-
+  background-color: #61365b;
+  border: 1.5px solid rgb(206, 206, 206);
+  font-family: "Open Sans", sans-serif;
   width: 100px;
   height: 100px;
   text-align: center;
   margin: auto;
-  font-size: 5em;
+  font-size: 4em;
   color: white;
 }
 
 #winner {
   width: 373px;
-  height: 80px;
+  height: 100px;
   padding-bottom: 10px;
   margin: auto;
 }
@@ -33,9 +33,38 @@ body {
 h1 {
   margin: auto;
   text-align: center;
-  color: rgb(239, 220, 255);
+  color: #bdca68;
+  font-family: "Jomhuria", cursive;
+  font-size: 6em;
 }
 #btn {
   margin-top: 10px;
   margin-left: 150px;
+  background-color: #5b6136;
+  height: 30px;
+  color: white;
+  border-radius: 20px;
+}
+
+.hovered {
+  background-color: #5b6136;
+  border: 1.5px solid rgb(255, 255, 255);
+  font-family: "Open Sans", sans-serif;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  margin: auto;
+  font-size: 4em;
+  color: white;
+}
+.winner {
+  background-color: #bb1212;
+  border: 1.5px solid rgb(255, 255, 255);
+  font-family: "Open Sans", sans-serif;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  margin: auto;
+  font-size: 4em;
+  color: rgb(255, 255, 255);
 }
