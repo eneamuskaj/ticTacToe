@@ -60,22 +60,27 @@ const Game = () => {
       });
 
       cellListener.addEventListener("click", function () {
-        if (playCounter % 2 !== 0 && gameBoard[i] === "") {
+        if (/*playCounter % 2 !== 0 && */ gameBoard[i] === "") {
           gameBoard[i] = "x";
           playCounter++;
-          // function generator() {
-          //   randomGenerator = Math.floor(Math.random() * Math.floor(8));
-          //   return randomGenerator;
-          // }
+          function generator() {
+            randomGenerator = Math.floor(Math.random() * Math.floor(8));
+            return randomGenerator;
+          }
 
-          drawTable();
-          checkWinner();
-        } else if ((playCounter % 2 === 0) & (gameBoard[i] === "")) {
-          gameBoard[i] = "o";
-          playCounter++;
+          do {
+            generator();
+          } while (gameBoard[randomGenerator] !== "" && playCounter < 6);
+          gameBoard[randomGenerator] = "o";
           drawTable();
           checkWinner();
         }
+        // } else if ((playCounter % 2 === 0) & (gameBoard[i] === "")) {
+        //   gameBoard[i] = "o";
+        //   playCounter++;
+        //   drawTable();
+        //   checkWinner();
+        // }
       });
     }
   };
