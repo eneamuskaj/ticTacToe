@@ -35,7 +35,7 @@ const Game = () => {
     }
   };
 
-  const drawTable = () => {
+  const drawTable1 = () => {
     deleteBoard = document.getElementById("board");
     deleteBoard.remove();
     var documentSelector = document.body.querySelector("#document");
@@ -60,7 +60,7 @@ const Game = () => {
       });
 
       cellListener.addEventListener("click", function () {
-        if (/*playCounter % 2 !== 0 && */ gameBoard[i] === "") {
+        if (gameBoard[i] === "") {
           gameBoard[i] = "x";
           playCounter++;
           function generator() {
@@ -72,15 +72,49 @@ const Game = () => {
             generator();
           } while (gameBoard[randomGenerator] !== "" && playCounter < 6);
           gameBoard[randomGenerator] = "o";
-          drawTable();
+          drawTable1();
           checkWinner();
         }
-        // } else if ((playCounter % 2 === 0) & (gameBoard[i] === "")) {
-        //   gameBoard[i] = "o";
-        //   playCounter++;
-        //   drawTable();
-        //   checkWinner();
-        // }
+      });
+    }
+  };
+
+  const drawTable2 = () => {
+    deleteBoard = document.getElementById("board");
+    deleteBoard.remove();
+    var documentSelector = document.body.querySelector("#document");
+    board = document.createElement("div");
+    board.id = "board";
+    documentSelector.appendChild(board);
+    var boardSelector = document.body.querySelector("#board");
+    for (let i = 0; i < 9; i++) {
+      cell = document.createElement("div");
+      cell.className = "cell";
+      cell.id = "cell" + i;
+      cell.innerHTML = gameBoard[i];
+      boardSelector.appendChild(cell);
+
+      cellListener = document.getElementById("cell" + i);
+
+      cellListener.addEventListener("mouseenter", function () {
+        document.getElementById("cell" + i).classList.add("hovered");
+      });
+      cellListener.addEventListener("mouseout", function () {
+        document.getElementById("cell" + i).classList.remove("hovered");
+      });
+
+      cellListener.addEventListener("click", function () {
+        if (playCounter % 2 !== 0 && gameBoard[i] === "") {
+          gameBoard[i] = "x";
+          playCounter++;
+          drawTable2();
+          checkWinner();
+        } else if ((playCounter % 2 === 0) & (gameBoard[i] === "")) {
+          gameBoard[i] = "o";
+          playCounter++;
+          drawTable2();
+          checkWinner();
+        }
       });
     }
   };
@@ -100,8 +134,15 @@ const Game = () => {
     window.location.reload();
   });
 
-  return { drawTable };
+  return { drawTable1, drawTable2 };
 };
 
-newGame = Game();
-newGame.drawTable();
+document.getElementById("btn1").addEventListener("click", function () {
+  newGame = Game();
+  newGame.drawTable1();
+});
+
+document.getElementById("btn2").addEventListener("click", function () {
+  newGame = Game();
+  newGame.drawTable2();
+});

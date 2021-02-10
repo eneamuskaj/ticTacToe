@@ -37,13 +37,32 @@ h1 {
   font-family: "Jomhuria", cursive;
   font-size: 6em;
 }
-#btn {
+.button {
   margin-top: 10px;
-  margin-left: 150px;
+
+  width: 150px;
   background-color: #5b6136;
   height: 30px;
   color: white;
   border-radius: 20px;
+}
+#buttons {
+  display: grid;
+  grid-template-columns: auto auto;
+  text-align: center;
+  width: 10px;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+#buttons2 {
+  display: grid;
+  grid-template-columns: auto;
+  text-align: center;
+
+  margin: auto;
+  align-items: center;
+  justify-content: center;
 }
 
 .hovered {
