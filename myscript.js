@@ -32,6 +32,7 @@ const Game = () => {
           .classList.add("winner");
         announceWinner();
       }
+      //announce Winner
     }
   };
 
